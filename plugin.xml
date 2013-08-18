@@ -1,4 +1,4 @@
-<plugin name='correios' version='0.1' grailsVersion='2.1 &gt; *'>
+<plugin name='correios' version='0.2' grailsVersion='2.1 &gt; *'>
   <author>Your name</author>
   <title>Correios Plugin</title>
   <description>Brief summary/description of the plugin.
