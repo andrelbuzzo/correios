@@ -1,0 +1,29 @@
+<plugin name='correios' version='0.1' grailsVersion='2.1 &gt; *'>
+  <author>Your name</author>
+  <title>Correios Plugin</title>
+  <description>Brief summary/description of the plugin.
+</description>
+  <documentation>http://grails.org/plugin/correios</documentation>
+  <type>CorreiosGrailsPlugin</type>
+  <resources>
+    <resource>grails.plugins.correios.PrecoPrazoECTService</resource>
+    <resource>grails.plugins.correios.RastreamentoECTService</resource>
+    <resource>grails.plugins.correios.sigepweb.ScolService</resource>
+    <resource>grails.plugins.correios.sigepweb.SigepWebService</resource>
+  </resources>
+  <repositories>
+    <repository name='grailsCentral' url='http://grails.org/plugins' />
+    <repository name='http://repo.grails.org/grails/core' url='http://repo.grails.org/grails/core/' />
+    <repository name='mavenCentral' url='http://repo1.maven.org/maven2/' />
+    <repository name='Codehaus' url='http://repository.codehaus.org/' />
+  </repositories>
+  <dependencies />
+  <plugins>
+    <compile>
+      <plugin group='org.grails.plugins' name='ws-client' version='1.0' />
+      <plugin group='org.grails.plugins' name='rest' version='0.7' />
+    </compile>
+  </plugins>
+  <runtimePluginRequirements />
+  <behavior />
+</plugin>
