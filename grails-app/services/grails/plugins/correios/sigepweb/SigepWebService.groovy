@@ -47,7 +47,7 @@ class SigepWebService {
 		proxy.geraDigitoVerificadorEtiquetas(etiquetas,user,password)
 	}
 	
-	def gerarArquivo(data,clos=null) {
+	def gerarArquivoEnderecos(data,clos=null) {
 		def text="1SIGEP DESTINATARIO NACIONAL\r\n"
 		text+=data.collect{ r->
 			formatDestinatario(r,clos)
