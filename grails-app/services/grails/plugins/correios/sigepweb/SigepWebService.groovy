@@ -55,6 +55,35 @@ class SigepWebService {
 		text+=String.format("\r\n9%06d\r\n",data.size())
 		text
 	}
+	def importarResultadoPostagem(fn, encoding='ISO-8859-1') {
+		def f=new File(fn)
+		def text
+		if (encoding)
+			text=f.getText(encoding)
+		else text=f.text
+		def result=[]
+		text.split('\n').eachWithIndex { l, line->
+			if (line>0) {
+				def reg=processarLinhaArquivoPostagem(l)
+				result.add(reg)
+			}
+		}
+		result
+	}
+  
+	def processarLinhaArquivoPostagem(l) {
+		def reg=[:]
+		def r=l.split(';')
+		map.eachWithIndex { k,mi, index ->
+			def val
+			if (r.size()>index) {
+				val=r[index]
+				val=convert(mi,val)
+				reg[k]=val
+			}
+		}
+		reg
+	}
 	
 	private def formatCpf(c) {
 		def cpf=c.replaceAll('\\.','').replaceAll('-','').replaceAll('/','')
@@ -89,6 +118,9 @@ class SigepWebService {
 			if (r[k]) {
 				def val=r[k]
 				if (v.format) val=v.format(val)
+				if (val instanceof String)
+					val=val.replaceAll(';',',')	// Trata ocorrencias de ';' para evitar que arquivo 
+												// retorno tenha falsos delimitadores de campo
 				m[k]=val
 			} else if (v.required) throw new RuntimeException("Field $k not found for register $l")
 			else m[k]=''
@@ -99,4 +131,43 @@ class SigepWebService {
 					 m.telefone,m.celular,m.fax)
 		result
 	}
+	
+	
+	private map= [numeroPLP:[title:'Numero PLP',type:'numeric'],
+		dataCriacao:[title:'Data de Criação',type:'date'],
+		contrato:[title:'Contrato'],
+		cartaoPostagem:[title:'Cartão de Postagem'],
+		remetente:[title:'Remetente'],
+		enderecoRemetente:[title:'Endereço Remetente'],
+		emailRemetente:[title:'EMail Remetente'],
+		codigoServico:[title:'Codigo Serviço',type:'numeric'],
+		descricaoServico:[title:'Descrição Serviço'],
+		codigoObjeto:[title:'Codigo Objeto'],
+		observacoes:[title:'Observações'],
+		peso:[title:'Peso',type:'numeric'],
+		altura:[title:'Altura',type:'double'],
+		largura:[title:'Largura',type:'double'],
+		comprimento:[title:'Comprimento',type:'double'],
+		destinatario:[title:'Destinatario'],
+		endereco:[title:'Endereço'],
+		numero:[title:'Numero'],
+		complemento:[title:'Complemento'],
+		bairro:[title:'Bairro'],
+		cidade:[title:'Cidade'],
+		uf:[title:'UF'],
+		cep:[title:'CEP'],
+		email:[title:'E-Mail'],
+		servicosAdicionais:[title:'Serviços Adicionais'],
+		valorCobrado:[title:'Valor Cobrado']]
+		
+	private def convert(mitem,val) {
+	  if (mitem.type=='numeric') {
+		  val.toInteger()
+	  } else if (mitem.type=='double') {
+		  val.toDouble()
+	  } else if (mitem.type=='date') {
+		  Date.parse('dd/MM/yyyy',val)
+	  } else val
+	}
+	
 }

@@ -1,6 +1,6 @@
 class CorreiosGrailsPlugin {
     // the plugin version
-    def version = "0.3"
+    def version = "0.4"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "2.1 > *"
     // the other plugins this plugin depends on
@@ -12,11 +12,9 @@ class CorreiosGrailsPlugin {
 
     // TODO Fill in these fields
     def title = "Correios Plugin" // Headline display name of the plugin
-    def author = "Your name"
-    def authorEmail = ""
-    def description = '''\
-Brief summary/description of the plugin.
-'''
+    def author = "Oscar A. Konno Sampaio"
+    def authorEmail = "oscarks@gmail.com"
+    def description = '''Implementa várias funcionalidades de acesso a WS e arquivos dos sistemas dos correios'''
 
     // URL to the plugin's documentation
     def documentation = "http://grails.org/plugin/correios"

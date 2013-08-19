@@ -1,8 +1,8 @@
-<plugin name='correios' version='0.3' grailsVersion='2.1 &gt; *'>
-  <author>Your name</author>
+<plugin name='correios' version='0.4' grailsVersion='2.1 &gt; *'>
+  <author>Oscar A. Konno Sampaio</author>
+  <authorEmail>oscarks@gmail.com</authorEmail>
   <title>Correios Plugin</title>
-  <description>Brief summary/description of the plugin.
-</description>
+  <description>Implementa várias funcionalidades de acesso a WS e arquivos dos sistemas dos correios</description>
   <documentation>http://grails.org/plugin/correios</documentation>
   <type>CorreiosGrailsPlugin</type>
   <resources>
