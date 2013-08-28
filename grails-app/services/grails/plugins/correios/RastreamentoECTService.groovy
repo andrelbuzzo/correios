@@ -27,7 +27,7 @@ class RastreamentoECTService {
 		if (user=='TEST_USER') {
 			llc=partition(lobj,2)
 		} else {
-			llc.add(lobj,NUMMAX_OBJECTS)
+			llc=partition(lobj,NUMMAX_OBJECTS)
 		}
 		log.debug "Tracking list: $llc"
 		def lobjetos=[]
