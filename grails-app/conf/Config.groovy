@@ -6,12 +6,15 @@ development {
 	grails.plugins.correios.precoPrazo.wsdl='http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx?WSDL'
 	grails.plugins.correios.rastreamento.url='http://websro.correios.com.br/sro_bin/sroii_xml.eventos'
 
-	grails.plugins.correios.usuario='60618043'
-	grails.plugins.correios.senha='8o8otn'
-	grails.plugins.correios.codigoAdministrativo='5122864'
-	grails.plugins.correios.contrato='1000010572'
-	grails.plugins.correios.codigoServico='41076'
-	grails.plugins.correios.cartao='0057702519'
+	grails.plugins.correios.sigepweb.usuario='60618043'
+	grails.plugins.correios.sigepweb.senha='8o8otn'
+	grails.plugins.correios.sigepweb.codigoAdministrativo='5122864'
+	grails.plugins.correios.sigepweb.contrato='1000010572'
+	grails.plugins.correios.sigepweb.codigoServico='41076'
+	grails.plugins.correios.sigepweb.cartao='0057702519'
+	grails.plugins.correios.sro.usuario='ECT'
+	grails.plugins.correios.sro.senha='SRO'
+
 }
 production {
 	grails.plugins.sigepweb.scol.wsdl='http://webservicescol.correios.com.br/ScolWeb/WebServiceScol?wsdl'
@@ -38,6 +41,7 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
-
+		   
+	debug  'grails.plugins.correios'
     warn   'org.mortbay.log'
 }

@@ -21,9 +21,16 @@ Configuration
 You can configure some parameters in the grails-app/conf/Config.groovy. They are:
 
 
-	grails.plugins.correios.usuario='*******' 		// User provided by Correios, 
+	grails.plugins.correios.xxxx.usuario='*******' 		// User provided by Correios, 
 								// in development and test environments, for tracking tests, 
 								// you can use the "ECT" user with "SRO" password
-	grails.plugins.correios.senha='******'			// Password provided by Correios
-	grails.plugins.correios.codigoAdministrativo='*******'  // Administrative code, provided by Correios
-	grails.plugins.correios.contrato='*********'		// Contract id, provided by correios
+	grails.plugins.correios.xxxx.senha='******'			// Password provided by Correios
+	grails.plugins.correios.xxxx.codigoAdministrativo='*******'  // Administrative code, provided by Correios
+	grails.plugins.correios.xxxx.contrato='*********'		// Contract id, provided by correios
+
+
+Where 'xxxx' is the service:
+	sro - Serviço de Rastreamento de Objetos
+	sigepweb - Sistema de gerenciamento de endereçamento Postal WEB
+	scop
+	

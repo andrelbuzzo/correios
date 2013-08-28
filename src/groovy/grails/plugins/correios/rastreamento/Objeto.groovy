@@ -24,4 +24,14 @@ class Objeto {
 	String toString() {
 		"$numero : ${eventos}"
 	}
+	
+	Boolean isEntregue() {
+		if (eventos) eventos[0].entregue
+		else false
+	}
+	
+	Boolean isFinalizado() {
+		if (eventos) eventos[0].finalizado
+		else false
+	}
 }

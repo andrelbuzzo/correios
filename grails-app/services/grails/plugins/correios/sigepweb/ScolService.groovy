@@ -5,6 +5,15 @@ import groovyx.net.ws.WSClient
 class ScolService {
 	def grailsApplication
 	
+	private def proxy_
+	
+	def getProxy() {
+		if (!proxy_) {
+			proxy_=new WSClient(wsdlURL)
+			proxy_.initialize()
+		}
+	}
+
 	def getWsdlURL() {
 		grailsApplication.config.grails.plugins.sigepweb.scol.wsdl
 	}
@@ -31,12 +40,10 @@ class ScolService {
 	}
 	
 	def solicitaRange(tipo,quantidade) {
-		def proxy=new WSClient(wsdlURL)
 		proxy.solicitaRange(usuario,senha,codigoAdministrativo,contrato,tipo,quantidade)
 	}
 	
 	def calcularDigitoVerificador(numero) {
-		def proxy=new WSClient(wsdlURL)
 		proxy.calcularDigitoVerificador(usuario,senha,codigoAdministrativo,numero)
 	}
 	

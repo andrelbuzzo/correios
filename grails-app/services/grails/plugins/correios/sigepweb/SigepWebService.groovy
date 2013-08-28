@@ -2,9 +2,20 @@ package grails.plugins.correios.sigepweb
 
 import groovyx.net.ws.WSClient
 
+
 class SigepWebService {
+	static transactional=false
+	
 	def grailsApplication
 	
+	private def proxy_
+	
+	def getProxy() {
+		if (!proxy_) {
+			proxy_=new WSClient(wsdlURL)
+			proxy_.initialize()
+		}
+	}
 	
 	def getWsdlURL() {
 		grailsApplication.config.grails.plugins.correios.sigepweb.wsdl
@@ -18,35 +29,34 @@ class SigepWebService {
 	}
 	
 	def verificaDisponibilidadeServico(codAdministrativo, numeroServico, cepOrigem, cepDestino){
-		def proxy=new WSClient(wsdlURL)
 		proxy.verificaDisponibilidadeServico(codAdministrativo, numeroServico, cepOrigem, cepDestino, user,password)
 	}
 	
 	def buscaCliente (idContrato, idCartaoPostagem) {
-		def proxy=new WSClient(wsdlURL)
 		proxy.buscaCliente (idContrato, idCartaoPostagem, user, password)
 	}
 	
 	def consultaCEP(cep) {
-		def proxy=new WSClient(wsdlURL)
 		proxy.consultaCEP(cep)
 	}
 
 	def getStatusCartaoPostagem (numeroCartaoPostagem) {
-		def proxy=new WSClient(wsdlURL)
 		proxy.StatusCartaoPostagem (numeroCartaoPostagem, user, password)
 	}
 
 	
 	def solicitaEtiquetas(tipoDestinatario, identificador, idServico, qtdEtiquetas) {
-		def proxy=new WSClient(wsdlURL)
 		proxy.solicitaEtiquetas(tipoDestinatario, identificador, idServico,	qtdEtiquetas,  user, password)
 	}
 	def geraDigitoVerificadorEtiquetas(etiquetas) {
-		def proxy=new WSClient(wsdlURL)
 		proxy.geraDigitoVerificadorEtiquetas(etiquetas,user,password)
 	}
+	//===========================================================================================================
+	// Interfaces de arquivo
+	//===========================================================================================================
 	
+	// Arquivo de Endereçamento - Address File
+	// Gera arquivo com endereços de destinatários para importação no SIGEP WEB
 	def gerarArquivoEnderecos(data,clos=null) {
 		def text="1SIGEP DESTINATARIO NACIONAL\r\n"
 		text+=data.collect{ r->
@@ -55,7 +65,9 @@ class SigepWebService {
 		text+=String.format("\r\n9%06d\r\n",data.size())
 		text
 	}
-	def importarResultadoPostagem(fn, encoding='ISO-8859-1') {
+	// Arquivo resultado de postagem
+	// Importa arquivo contendo informação das postagem efetuadas, utilizado para obter os codigos de rastreamento
+	def importarArquivoResultadoPostagem(fn, encoding='ISO-8859-1') {
 		def f=new File(fn)
 		def text
 		if (encoding)
@@ -70,8 +82,23 @@ class SigepWebService {
 		}
 		result
 	}
-  
-	def processarLinhaArquivoPostagem(l) {
+	def importarResultadoPostagem(t, encoding=null) {
+		def text
+		if (encoding) {
+			byte[] ptext = t.getBytes(encoding);
+			text = new String(ptext)
+		} else text=t
+		
+		def result=[]
+		text.split('\n').eachWithIndex { l, line->
+			if (line>0) {
+				def reg=processarLinhaArquivoPostagem(l)
+				result.add(reg)
+			}
+		}
+		result
+	}
+	private def processarLinhaArquivoPostagem(l) {
 		def reg=[:]
 		def r=l.split(';')
 		map.eachWithIndex { k,mi, index ->

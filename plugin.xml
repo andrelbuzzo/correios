@@ -1,4 +1,4 @@
-<plugin name='correios' version='0.4' grailsVersion='2.1 &gt; *'>
+<plugin name='correios' version='0.9' grailsVersion='2.1 &gt; *'>
   <author>Oscar A. Konno Sampaio</author>
   <authorEmail>oscarks@gmail.com</authorEmail>
   <title>Correios Plugin</title>
