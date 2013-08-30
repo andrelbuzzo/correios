@@ -10,7 +10,7 @@ class RastreamentoECTService {
 	def grailsApplication
 
 	static final String TEST_USER = 'ECT'
-	static final Integer NUMMAX_OBJECTS = 100
+	static final Integer NUMMAX_OBJECTS = 50
 	
 	
 	def getUsuario() {
