@@ -1,56 +1,10 @@
 package grails.plugins.correios.sigepweb
 
-import groovyx.net.ws.WSClient
-
-
 class SigepWebService {
 	static transactional=false
 	
 	def grailsApplication
 	
-	private def proxy_
-	
-	def getProxy() {
-		if (!proxy_) {
-			proxy_=new WSClient(wsdlURL)
-			proxy_.initialize()
-		}
-	}
-	
-	def getWsdlURL() {
-		grailsApplication.config.grails.plugins.correios.sigepweb.wsdl
-	}
-	def getUser() {
-		grailsApplication.config.grails.plugins.sigepweb.user
-	}
-	
-	def getPassword() {
-		grailsApplication.config.grails.plugins.sigepweb.password
-	}
-	
-	def verificaDisponibilidadeServico(codAdministrativo, numeroServico, cepOrigem, cepDestino){
-		proxy.verificaDisponibilidadeServico(codAdministrativo, numeroServico, cepOrigem, cepDestino, user,password)
-	}
-	
-	def buscaCliente (idContrato, idCartaoPostagem) {
-		proxy.buscaCliente (idContrato, idCartaoPostagem, user, password)
-	}
-	
-	def consultaCEP(cep) {
-		proxy.consultaCEP(cep)
-	}
-
-	def getStatusCartaoPostagem (numeroCartaoPostagem) {
-		proxy.StatusCartaoPostagem (numeroCartaoPostagem, user, password)
-	}
-
-	
-	def solicitaEtiquetas(tipoDestinatario, identificador, idServico, qtdEtiquetas) {
-		proxy.solicitaEtiquetas(tipoDestinatario, identificador, idServico,	qtdEtiquetas,  user, password)
-	}
-	def geraDigitoVerificadorEtiquetas(etiquetas) {
-		proxy.geraDigitoVerificadorEtiquetas(etiquetas,user,password)
-	}
 	//===========================================================================================================
 	// Interfaces de arquivo
 	//===========================================================================================================

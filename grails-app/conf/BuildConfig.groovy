@@ -13,8 +13,8 @@ grails.project.dependency.resolution = {
         grailsCentral()
         // uncomment the below to enable remote dependency resolution
         // from public Maven repositories
-        //mavenLocal()
-        //mavenCentral()
+        mavenLocal()
+        mavenCentral()
         //mavenRepo "http://snapshots.repository.codehaus.org"
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
@@ -22,7 +22,11 @@ grails.project.dependency.resolution = {
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
-
+	// compile 'org.apache.cxf:cxf-rt-core:2.5.11'
+	// compile 'org.apache.cxf:cxf-rt-frontend-jaxws:2.5.11'
+	// compile 'org.apache.cxf:cxf-rt-transports-http:2.5.11'
+	// compile 'org.apache.cxf:cxf-common-utilities:2.5.11'
+	// compile 'org.codehaus.groovy.modules:groovyws:0.5.2'
         // runtime 'mysql:mysql-connector-java:5.1.18'
     }
 
@@ -32,7 +36,8 @@ grails.project.dependency.resolution = {
               ":rest-client-builder:1.0.2") {
             export = false
         }
-		compile ":ws-client:1.0"
+		// compile ":ws-client:1.0"
+		compile ":wslite:0.7.2.0"
 		compile ":rest:0.7"
     }
 }

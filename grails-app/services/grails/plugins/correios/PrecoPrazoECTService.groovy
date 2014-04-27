@@ -1,21 +1,7 @@
 package grails.plugins.correios
-
 class PrecoPrazoECTService {
 	static transactional = false
 	def grailsApplication
-	def webService
-	
-	def proxyInstance
-	
-	def getWsdlURL() {
-		grailsApplication.config.grails.plugins.correios.precoPrazo.wsdl
-	}
-	
-	def getProxy(){
-		if (!proxyInstance)
-			proxyInstance = webService.getClient(wsdlURL)
-		proxyInstance
-	}
 	
 	static def cache = [:]
 	static def cacheTimeOutValue
@@ -29,16 +15,39 @@ class PrecoPrazoECTService {
 			def r=getFromCache(args)
 			if (r) 
 				return r
-			def result=proxy.CalcPrecoPrazo(codigoEmpresa,senha,codigoServico,cepOrigem,cepDestino,speso,embalagem,comp,altr,larg,diam,maoPropria,valorDeclarado,avisoRecebimento)
-			def resp=result.servicos.cServico[0]
-			log.debug "Resposta: ${resp}"
-			if (resp.erro && resp.erro!='0') {
-				log.debug "Resposta com erro: ${resp.erro} - ${resp.msgErro}"
-				throw new RuntimeException("Erro: ${resp.erro} Msg:${resp.msgErro}")
-			} else {
-				r=[valor:resp.valor,prazoEntrega:resp.prazoEntrega]
-				addToCache(args,r)
-				r
+
+			withSoap(serviceURL: 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx') {
+				def result = send(SOAPAction: 'http://tempuri.org/CalcPrecoPrazo') {
+				      body {
+					 CalcPrecoPrazo(xmlns: 'http://tempuri.org/') {
+					    nCdEmpresa(codigoEmpresa)
+					    sDsSenha(senha)
+					    nCdServico(codigoServico)
+					    sCepOrigem(cepOrigem)
+					    sCepDestino(cepDestino)
+					    nVlPeso(speso)
+					    nCdFormato(embalagem)
+		                            nVlComprimento(comp)
+					    nVlAltura(altr)
+					    nVlLargura(larg)
+					    nVlDiametro(diam)
+					    sCdMaoPropria(maoPropria)
+					    nVlValorDeclarado(valorDeclarado)
+					    sCdAvisoRecebimento(avisoRecebimento)
+					 }
+				      }
+				   }
+				
+				def resp= result.CalcPrecoPrazoResponse.CalcPrecoPrazoResult.Servicos.cServico[0]
+				log.debug "Resposta: ${resp}"
+				if (resp.Erro && resp.Erro!='0') {
+					log.debug "Resposta com erro: ${resp.Erro} - ${resp.MsgErro}"
+					throw new RuntimeException("Erro: ${resp.Erro} Msg:${resp.MsgErro}")
+				} else {
+					r=[valor:resp.Valor,prazoEntrega:resp.PrazoEntrega]
+					addToCache(args,r)
+					r
+				}
 			}
 		
 	}

@@ -1,6 +1,6 @@
 class CorreiosGrailsPlugin {
     // the plugin version
-    def version = "0.12"
+    def version = "0.13"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "2.1 > *"
     // the other plugins this plugin depends on
