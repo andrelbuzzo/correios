@@ -20,17 +20,17 @@ class PrecoPrazoECTService {
 				def result = send(SOAPAction: 'http://tempuri.org/CalcPrecoPrazo') {
 				      body {
 					 CalcPrecoPrazo(xmlns: 'http://tempuri.org/') {
-					    nCdEmpresa(codigoEmpresa)
-					    sDsSenha(senha)
+					    if (codigoEmpresa)   nCdEmpresa(codigoEmpresa)
+					    if (senha) sDsSenha(senha)
 					    nCdServico(codigoServico)
 					    sCepOrigem(cepOrigem)
 					    sCepDestino(cepDestino)
 					    nVlPeso(speso)
 					    nCdFormato(embalagem)
-		                            nVlComprimento(comp)
-					    nVlAltura(altr)
-					    nVlLargura(larg)
-					    nVlDiametro(diam)
+		                            if (comp) nVlComprimento(comp)
+					    if (altr) nVlAltura(altr)
+					    if (larg) nVlLargura(larg)
+					    if (diam) nVlDiametro(diam)
 					    sCdMaoPropria(maoPropria)
 					    nVlValorDeclarado(valorDeclarado)
 					    sCdAvisoRecebimento(avisoRecebimento)

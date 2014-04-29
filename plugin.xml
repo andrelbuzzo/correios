@@ -1,4 +1,4 @@
-<plugin name='correios' version='0.13' grailsVersion='2.1 &gt; *'>
+<plugin name='correios' version='0.14' grailsVersion='2.1 &gt; *'>
   <author>Oscar A. Konno Sampaio</author>
   <authorEmail>oscarks@gmail.com</authorEmail>
   <title>Correios Plugin</title>
@@ -8,7 +8,6 @@
   <resources>
     <resource>grails.plugins.correios.PrecoPrazoECTService</resource>
     <resource>grails.plugins.correios.RastreamentoECTService</resource>
-    <resource>grails.plugins.correios.sigepweb.ScolService</resource>
     <resource>grails.plugins.correios.sigepweb.SigepWebService</resource>
   </resources>
   <repositories>
@@ -22,8 +21,8 @@
   <dependencies />
   <plugins>
     <compile>
-      <plugin group='org.grails.plugins' name='wslite' version='0.7.2.0' />
       <plugin group='org.grails.plugins' name='rest' version='0.7' />
+      <plugin group='org.grails.plugins' name='wslite' version='0.7.2.0' />
     </compile>
   </plugins>
   <runtimePluginRequirements />
